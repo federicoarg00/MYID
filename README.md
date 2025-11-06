@@ -1,75 +1,167 @@
-Visión General
-NFC ID TAG es una plataforma integral de gestión de accesorios NFC (pulseras, llaveros, etc.) que permite a los usuarios almacenar y compartir información personal, médica y profesional crítica. La información es accesible instantáneamente mediante lectura NFC sin necesidad de instalar aplicaciones, siendo especialmente útil en situaciones de emergencia.
-🔑 Objetivos del Producto
+# MyID - NFC Emergency Information Platform
 
-Seguridad: Proporcionar acceso rápido a información vital en emergencias médicas
-Privacidad: Permitir que los usuarios controlen completamente qué información compartir y cuándo
-Escalabilidad: Crear una plataforma SaaS con modelo de suscripción anual
-Accesibilidad: Funciona con cualquier smartphone con NFC, sin apps requeridas
-Flexibilidad: Actualizar información 24/7 sin reemplazar dispositivos físicos
+Plataforma integral que permite a los usuarios adquirir accesorios NFC (pulseras, llaveros, etc.) y gestionar información personal y médica crítica que puede ser accedida mediante lectura NFC en situaciones de emergencia.
 
-📦 Módulos Incluidos en MVP
-1. E-commerce
+## 🚀 Stack Tecnológico
 
-Catálogo de productos (pulseras, llaveros, accesorios NFC)
-Carrito de compras y checkout
-Integración con pasarelas de pago (Stripe, PayPal, MercadoPago)
-Gestión de pedidos y confirmación por email
+- **Frontend & Backend**: Next.js 15+ (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Payments**: Stripe
+- **File Storage**: Supabase Storage
+- **Deployment**: Vercel
 
-2. Autenticación y Gestión de Usuarios
+## 📋 Requisitos Previos
 
-Registro e inicio de sesión (email/contraseña y OAuth)
-Autenticación de dos factores (2FA) opcional
-Recuperación de contraseña
-Gestión de sesiones seguras
+- Node.js 18+
+- npm o yarn
+- Cuenta de Supabase
+- Cuenta de Stripe
 
-3. Gestión de Dispositivos NFC
+## 🛠️ Instalación
 
-Vinculación de dispositivos mediante código único
-Un dispositivo por cuenta activa
-Transferencia de dispositivos entre usuarios
-Historial de dispositivos vinculados
+1. **Clonar el repositorio**
+```bash
+git clone <repository-url>
+cd MYID
+```
 
-4. Editor de Perfil Personalizable
+2. **Instalar dependencias**
+```bash
+npm install
+```
 
-Campos predefinidos:
+3. **Configurar variables de entorno**
+```bash
+cp .env.example .env.local
+```
 
-Personales: nombre, foto, edad, dirección, teléfono
-Médicos: grupo sanguíneo, alergias, medicaciones, condiciones
-Profesionales: profesión, empresa, LinkedIn
-Emergencia: contactos de emergencia (máx. 5)
-Otros: seguro médico, donante de órganos, instrucciones especiales
+Edita `.env.local` con tus credenciales:
+- Supabase URL y Keys (desde tu proyecto en supabase.com)
+- Stripe Keys (desde tu dashboard en stripe.com)
 
+4. **Configurar la base de datos**
+```bash
+# Ejecutar el script SQL en Supabase
+# Ver: supabase/schema.sql
+```
 
-Campos personalizados: hasta 10 campos adicionales por usuario
-Control de visibilidad: Público, Privado (requiere PIN), Oculto
-4 Templates predefinidos: Adulto Mayor, Menor, Profesional, Deportista
+5. **Ejecutar el servidor de desarrollo**
+```bash
+npm run dev
+```
 
-5. Funcionalidades de Emergencia
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-🔓 Visualización de perfil mediante lectura NFC (sin app requerida)
-📞 Botones de llamada directa a contactos de emergencia
-📍 Envío automático de ubicación GPS a contactos
-📋 Historial de accesos con fecha, hora y ubicación aproximada
-🔒 Seguridad en modo privado (requiere PIN)
+## 📁 Estructura del Proyecto
 
-6. Gestión de Suscripción
+```
+myid/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Rutas de autenticación
+│   ├── (dashboard)/       # Panel de usuario
+│   ├── (emergency)/       # Página NFC de emergencia
+│   ├── (shop)/            # E-commerce
+│   ├── api/               # API Routes
+│   ├── layout.tsx         # Layout raíz
+│   └── page.tsx           # Homepage
+├── components/            # Componentes React
+│   ├── ui/               # Componentes UI base
+│   └── ...
+├── lib/                   # Utilidades y configuraciones
+│   ├── supabase/         # Cliente Supabase
+│   ├── stripe.ts         # Cliente Stripe
+│   └── utils.ts          # Utilidades generales
+├── types/                 # Tipos TypeScript
+│   └── database.types.ts # Tipos de base de datos
+├── supabase/             # Configuración Supabase
+│   └── schema.sql        # Esquema de base de datos
+└── public/               # Archivos estáticos
+```
 
-Suscripción anual automática con compra
-Renovación automática u opcional
-Período de gracia de 7 días tras vencimiento
-Recordatorios 30 días antes del vencimiento
+## 🗄️ Módulos del Sistema
 
-7. Panel de Administración
+### 1. **E-commerce**
+- Catálogo de productos NFC
+- Carrito de compras
+- Checkout con Stripe
+- Gestión de pedidos
 
-Gestión de usuarios y suscripciones
-Estadísticas y reportes
-Control de inventario
-Gestión de dispositivos NFC
+### 2. **Gestión de Usuarios**
+- Registro y autenticación
+- Perfil de usuario
+- Gestión de suscripciones
+- Vinculación de dispositivos NFC
 
-🎯 Públicos Objetivo
+### 3. **Gestión de Información Personal**
+- Editor de campos personalizables
+- Almacenamiento seguro de datos médicos
+- Gestión de contactos de emergencia
+- Carga de archivos (fotos, documentos)
 
-👨‍👩‍👧‍👦 Familias con menores: Protección infantil y contactos de emergencia
-👴 Adultos mayores: Información médica accesible en emergencias
-💼 Profesionales: Networking sin tarjetas de presentación
-🏃 Deportistas: Información médica para actividades físicas
+### 4. **Funcionalidades de Emergencia**
+- Visualización de perfil mediante lectura NFC
+- Botón de llamada directa a contactos
+- Envío automático de ubicación GPS
+- Historial de accesos al perfil
+
+### 5. **Panel de Administración**
+- Gestión de usuarios y suscripciones
+- Estadísticas y reportes
+- Gestión de inventario de productos
+- Control de dispositivos NFC
+
+## 🔐 Seguridad
+
+- Información médica encriptada (AES-256)
+- Comunicación HTTPS/TLS
+- Autenticación segura con Supabase
+- Cumplimiento GDPR
+- Protección PCI DSS para pagos
+
+## 📱 Funcionalidades Clave
+
+- ✅ **Compatible con todos los smartphones NFC**
+- ✅ **No requiere instalación de apps**
+- ✅ **Actualización en tiempo real**
+- ✅ **Responsive design (móvil, tablet, desktop)**
+- ✅ **Multi-idioma (ES/EN)**
+
+## 🚢 Deployment
+
+### Vercel (Recomendado)
+
+1. Conecta tu repositorio a Vercel
+2. Configura las variables de entorno
+3. Deploy automático en cada push
+
+```bash
+npm run build
+npm start
+```
+
+## 📊 Métricas de Éxito
+
+- **Conversión**: >2% de visitantes completan compra
+- **Retención**: >70% renuevan suscripción
+- **Uptime**: 99.9% disponibilidad
+- **Performance**: <2s carga de página NFC
+
+## 🤝 Contribuir
+
+Este es un proyecto privado. Para contribuir, contacta al equipo de desarrollo.
+
+## 📄 Licencia
+
+Propietario - Todos los derechos reservados
+
+## 📞 Soporte
+
+Para soporte técnico, contacta: [email de soporte]
+
+---
+
+**Versión:** 1.0
+**Última actualización:** Noviembre 2025

@@ -1,0 +1,22 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "MyID - NFC Emergency Information Platform",
+  description: "Manage your emergency contact and medical information with NFC technology",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="es">
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+}
